@@ -1,24 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
 import { StackActions } from '@react-navigation/native';
+import { Video } from 'expo-av';
+import React from 'react';
 
 export default function SecondScreen({ navigation, route }) {
-  let language = route.params.language;
-  let greeting = language === 'french' ? 'Bonjour' : 'Hello';
+  const video = React.useRef(null);
+  const secondVideo = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+  const [statusSecondVideo, setStatusSecondVideo] = React.useState({});
+
   return (
     <View style={styles.container}>
-      <Text>{greeting}</Text>
+      <Video
+        ref={video}
+        style={styles.video}
+        source={require('../../UNGUARDED/unguardedsticker.mp4')}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={setStatus}
+      />
+
       <Button
         color="orange"
         title="UNGUARDED"
         onPress={() => navigation.push('Third')}
-      />
-      <Button
-        color="orange"
-        title="UNGUARDED"
-        onPress={() => {
-          navigation.dispatch(StackActions.replace('Third'));
-        }}
       />
       <StatusBar style="auto" />
     </View>
@@ -37,6 +44,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   buttons: {
-    margin: 16,
+    margin: 10,
   },
 });
