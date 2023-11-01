@@ -32,4 +32,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  video: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+  buttons: {
+    margin: 16,
+  },
 });
