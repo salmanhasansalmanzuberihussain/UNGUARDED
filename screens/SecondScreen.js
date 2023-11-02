@@ -1,37 +1,12 @@
 import * as React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Video } from 'expo-av';
+import QRCode from 'react-native-qrcode-svg';
 
 export default function SecondScreen({ navigation, route }) {
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
+  let logoFromFile = require('../assets/unguarded.png');
   return (
     <View style={styles.container}>
-      <Video
-        ref={video}
-        style={styles.video}
-        source={require('../../UNGUARDED/unguardedsticker.mp4')}
-        useNativeControls
-        resizeMode="contain"
-        ignoreSilentSwitch={'ignore'}
-        onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-      />
-      <View style={styles.buttons}>
-        <Button
-          color="orange"
-          title={status.isPlaying ? 'Pause' : 'Play'}
-          onPress={() =>
-            status.isPlaying
-              ? video.current.pauseAsync()
-              : video.current.playAsync()
-          }
-        />
-      </View>
-      <Button
-        color="orange"
-        title="UNGUARDED"
-        onPress={() => navigation.push('Third')}
-      />
+      <QRCode value="https://qrco.de/beRqJ7" logo={logoFromFile} />
     </View>
   );
 }
