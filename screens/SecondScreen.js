@@ -1,15 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View } from 'react-native';
-import { StackActions } from '@react-navigation/native';
+import * as React from 'react';
+import { View, StyleSheet, Button } from 'react-native';
 import { Video } from 'expo-av';
-import React from 'react';
 
 export default function SecondScreen({ navigation, route }) {
   const video = React.useRef(null);
-  const secondVideo = React.useRef(null);
   const [status, setStatus] = React.useState({});
-  const [statusSecondVideo, setStatusSecondVideo] = React.useState({});
-
   return (
     <View style={styles.container}>
       <Video
@@ -18,16 +13,25 @@ export default function SecondScreen({ navigation, route }) {
         source={require('../../UNGUARDED/unguardedsticker.mp4')}
         useNativeControls
         resizeMode="contain"
-        isLooping
-        onPlaybackStatusUpdate={setStatus}
+        ignoreSilentSwitch={'ignore'}
+        onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
-
+      <View style={styles.buttons}>
+        <Button
+          color="orange"
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying
+              ? video.current.pauseAsync()
+              : video.current.playAsync()
+          }
+        />
+      </View>
       <Button
         color="orange"
         title="UNGUARDED"
         onPress={() => navigation.push('Third')}
       />
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -35,15 +39,18 @@ export default function SecondScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'black',
   },
   video: {
-    flex: 1,
-    alignSelf: 'stretch',
+    alignSelf: 'center',
+    width: 350,
+    height: 220,
   },
   buttons: {
-    margin: 10,
+    color: 'orange',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
