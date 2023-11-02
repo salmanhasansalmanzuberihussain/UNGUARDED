@@ -11,8 +11,13 @@ export default function SecondScreen({ navigation, route }) {
       <QRCode value="https://qrco.de/beRqJ7" logo={logoFromFile} size={290} />
       <Button
         color="orange"
-        title="UNLOCK STORE"
+        title="UNLOCK VIDEO"
         onPress={() => navigation.push('Third')}
+      />
+      <Button
+        color="orange"
+        title="BACK"
+        onPress={() => navigation.popToTop()}
       />
     </View>
   );
