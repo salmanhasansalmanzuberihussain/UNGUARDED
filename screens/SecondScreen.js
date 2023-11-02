@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, Image } from 'react-native';
+const UNGUARDED = require('../assets/unguarded.png');
 import QRCode from 'react-native-qrcode-svg';
+import { RNSlidingButton, SlideDirection } from 'rn-sliding-button';
 
 export default function SecondScreen({ navigation, route }) {
   let logoFromFile = require('../assets/unguarded.png');
   return (
     <View style={styles.container}>
-      <QRCode value="https://qrco.de/beRqJ7" logo={logoFromFile} />
+      <QRCode value="https://qrco.de/beRqJ7" logo={logoFromFile} size={290} />
     </View>
   );
 }
@@ -14,8 +16,9 @@ export default function SecondScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   video: {
     alignSelf: 'center',
